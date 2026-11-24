@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Empresarial Protect API - SESMT & NR-6",
+    "version": "2.4.0",
+    "description": "API RESTful corporativa para gestão inteligente de EPIs, controle de CA, emissão de termos digitais e integração com leitores biométricos."
+  },
+  "servers": [
+    {
+      "url": "https://api.empresarialprotect.com.br/v2"
+    }
+  ],
+  "paths": {
+    "/colaboradores": {
+      "get": {
+        "summary": "Lista todos os colaboradores ativos",
+        "responses": {
+          "200": { "description": "Lista retornada com sucesso" }
+        }
+      },
+      "post": {
+        "summary": "Cadastra novo colaborador na base SESMT",
+        "responses": {
+          "201": { "description": "Colaborador criado com sucesso" }
+        }
+      }
+    },
+    "/almoxarifado/epis": {
+      "get": {
+        "summary": "Consulta estoque e validades de CA",
+        "responses": {
+          "200": { "description": "Inventário retornado" }
+        }
+      }
+    },
+    "/entregas/termo": {
+      "post": {
+        "summary": "Gera registro de entrega com assinatura digital",
+        "responses": {
+          "201": { "description": "Termo NR-6 gerado e armazenado" }
+        }
+      }
+    }
+  }
+}

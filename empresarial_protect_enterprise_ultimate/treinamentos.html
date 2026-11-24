@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresarial Protect | Treinamentos & Normas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand-box">
+                <div class="brand-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">
+                    <h2>Empresarial Protect</h2>
+                    <span>Enterprise Edition</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <span class="nav-category">Módulos do Sistema</span>
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i> Painel Geral & KPIs
+                </a>
+                <a href="colaboradores.html" class="nav-item">
+                    <i class="fa-solid fa-users-rectangle"></i> Colaboradores & Fichas
+                </a>
+                <a href="almoxarifado.html" class="nav-item">
+                    <i class="fa-solid fa-boxes-stacked"></i> Estoque & Validade CA
+                </a>
+                <a href="entregas.html" class="nav-item">
+                    <i class="fa-solid fa-file-signature"></i> Registro & Termos NR-6
+                </a>
+                <a href="treinamentos.html" class="nav-item active">
+                    <i class="fa-solid fa-graduation-cap"></i> Treinamentos & Normas
+                </a>
+                <a href="auditoria.html" class="nav-item">
+                    <i class="fa-solid fa-clipboard-check"></i> Auditoria & Exportação
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="company-info">
+                    <p><strong>Matriz Industrial - Setor B</strong></p>
+                    <span><i class="fa-solid fa-circle" style="font-size: 8px;"></i> 100% Conforme NR-6</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="globalSearch" placeholder="Pesquisar treinamentos..." onkeyup="filtrarTabelas()">
+                </div>
+                <div class="topbar-actions">
+                    <button class="btn-primary" onclick="alert('Módulo de agendamento de treinamento aberto.')"><i class="fa-solid fa-calendar-plus"></i> Agendar Treinamento</button>
+                    <div class="user-badge" title="Gestor SESMT">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span>Eng. SESMT</span>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content-section active">
+                <div class="page-header">
+                    <div>
+                        <h1>Controle de Treinamentos e Instrução NR-6</h1>
+                        <p>Registro de capacitações obrigatórias sobre uso, guarda e conservação dos EPIs.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tema / Treinamento</th>
+                                    <th>Público Alvo</th>
+                                    <th>Carga Horária</th>
+                                    <th>Status da Turma</th>
+                                    <th>Certificados</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Uso Correto de EPIs e Guarda Adequada</strong></td>
+                                    <td>Eletricistas e Manutenção</td>
+                                    <td>4 horas</td>
+                                    <td><span class="status-tag ok"><i class="fa-solid fa-circle-check"></i> Realizado (100% Aprovados)</span></td>
+                                    <td><button class="btn-text" onclick="alert('Emitindo ata de presença e certificados.')">Baixar Ata</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Prevenção de Quedas e Cintos de Segurança</strong></td>
+                                    <td>Trabalhadores em Altura (>2m)</td>
+                                    <td>6 horas</td>
+                                    <td><span class="status-tag ok"><i class="fa-solid fa-circle-check"></i> Realizado</span></td>
+                                    <td><button class="btn-text" onclick="alert('Emitindo ata de presença e certificados.')">Baixar Ata</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Proteção Respiratória (PFF2 / Fatores de Vedação)</strong></td>
+                                    <td>Setor de Caldeiraria e Solda</td>
+                                    <td>2 horas</td>
+                                    <td><span class="status-tag alert"><i class="fa-solid fa-clock"></i> Agendado para Próxima Sexta</span></td>
+                                    <td><button class="btn-text" onclick="alert('Lista de convocação.')">Ver Convocados</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

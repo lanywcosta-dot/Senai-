@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresarial Protect | Painel SESMT & NR-6</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand-box">
+                <div class="brand-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">
+                    <h2>Empresarial Protect</h2>
+                    <span>Enterprise Edition</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <span class="nav-category">Módulos do Sistema</span>
+                <a href="index.html" class="nav-item active">
+                    <i class="fa-solid fa-chart-pie"></i> Painel Geral & KPIs
+                </a>
+                <a href="colaboradores.html" class="nav-item">
+                    <i class="fa-solid fa-users-rectangle"></i> Colaboradores & Fichas
+                </a>
+                <a href="almoxarifado.html" class="nav-item">
+                    <i class="fa-solid fa-boxes-stacked"></i> Estoque & Validade CA
+                </a>
+                <a href="entregas.html" class="nav-item">
+                    <i class="fa-solid fa-file-signature"></i> Registro & Termos NR-6
+                </a>
+                <a href="treinamentos.html" class="nav-item">
+                    <i class="fa-solid fa-graduation-cap"></i> Treinamentos & Normas
+                </a>
+                <a href="auditoria.html" class="nav-item">
+                    <i class="fa-solid fa-clipboard-check"></i> Auditoria & Exportação
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="company-info">
+                    <p><strong>Matriz Industrial - Setor B</strong></p>
+                    <span><i class="fa-solid fa-circle" style="font-size: 8px;"></i> 100% Conforme NR-6</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="globalSearch" placeholder="Pesquisa global (colaborador, CA, EPI)..." onkeyup="filtrarGlobal()">
+                </div>
+                <div class="topbar-actions">
+                    <button class="btn-secondary" onclick="exportarBackupSistema()"><i class="fa-solid fa-database"></i> Backup</button>
+                    <button class="btn-primary" onclick="abrirModalRegistro()"><i class="fa-solid fa-plus"></i> Nova Entrega</button>
+                    <div class="user-badge" title="Gestor SESMT">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span>Eng. SESMT</span>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content-section active">
+                <div class="page-header">
+                    <div>
+                        <h1>Painel de Controle SESMT</h1>
+                        <p>Monitoramento em tempo real do fornecimento de EPIs e cumprimento da Norma Regulamentadora NR-6.</p>
+                    </div>
+                    <div class="date-display">
+                        <i class="fa-regular fa-calendar-days"></i> <span id="currentDate"></span>
+                    </div>
+                </div>
+
+                <!-- Métricas -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon blue"><i class="fa-solid fa-users"></i></div>
+                        <div class="metric-data">
+                            <span>Colaboradores Ativos</span>
+                            <h2 id="metricFuncionarios">0</h2>
+                            <small class="positive"><i class="fa-solid fa-circle-check"></i> Fichas NR-6 atualizadas</small>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon green"><i class="fa-solid fa-box-archive"></i></div>
+                        <div class="metric-data">
+                            <span>EPIs em Estoque</span>
+                            <h2 id="metricEstoque">0</h2>
+                            <small class="neutral">Almoxarifado centralizado</small>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon orange"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="metric-data">
+                            <span>Vencimentos Próximos</span>
+                            <h2 id="metricVencidos">0</h2>
+                            <small class="warning">Lotes precisando de reposição</small>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon purple"><i class="fa-solid fa-file-shield"></i></div>
+                        <div class="metric-data">
+                            <span>Termos Assinados</span>
+                            <h2 id="metricEntregas">0</h2>
+                            <small class="positive">Validação jurídica garantida</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos e Alertas -->
+                <div class="dashboard-grid-charts">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-chart-column"></i> Volume de EPIs por Categoria</h3>
+                            <span class="badge-neutral">Inventário Atual</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="graficoEpis"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-bell"></i> Alertas Críticos (NR-6)</h3>
+                            <span class="badge-warning">Atenção</span>
+                        </div>
+                        <div class="alert-feed" id="listaAlertasDashboard">
+                            <!-- Preenchido via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Últimas Entregas -->
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-clock-rotate-left"></i> Últimas Entregas Registradas</h3>
+                        <a href="entregas.html" class="btn-text">Ver histórico completo</a>
+                    </div>
+                    <div class="table-container">
+                        <table id="tabelaDashboardEntregas">
+                            <thead>
+                                <tr>
+                                    <th>ID Registro</th>
+                                    <th>Colaborador</th>
+                                    <th>Equipamento (EPI)</th>
+                                    <th>Data</th>
+                                    <th>Status NR-6</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modais globais -->
+    <div id="modalRegistro" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-signature"></i> Novo Registro de Entrega & Termo NR-6</h3>
+                <button class="modal-close" onclick="fecharModais()">&times;</button>
+            </div>
+            <form id="formEntrega" onsubmit="salvarEntrega(event)">
+                <div class="form-group">
+                    <label>Colaborador</label>
+                    <select id="selectFuncionario" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Equipamento de Proteção (EPI)</label>
+                    <select id="selectEpi" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Data da Entrega</label>
+                    <input type="date" id="dataEntrega" required>
+                </div>
+                <div class="form-group">
+                    <label>Assinatura Digital / Token Biométrico</label>
+                    <input type="text" id="assinaturaDigital" placeholder="Ex: Token SESMT #8942 - Colaborador Ciente" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="fecharModais()">Cancelar</button>
+                    <button type="submit" class="btn-primary">Emitir Termo e Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Termo NR-6 -->
+    <div id="modalTermo" class="modal-overlay">
+        <div class="modal-box modal-large">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-contract"></i> Termo de Responsabilidade & Ficha NR-6</h3>
+                <button class="modal-close" onclick="fecharModais()">&times;</button>
+            </div>
+            <div class="termo-content" id="termoConteudoImprimir"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="fecharModais()">Fechar</button>
+                <button type="button" class="btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir / Salvar PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresarial Protect | Colaboradores & Fichas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand-box">
+                <div class="brand-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="brand-text">
+                    <h2>Empresarial Protect</h2>
+                    <span>Enterprise Edition</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <span class="nav-category">Módulos do Sistema</span>
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i> Painel Geral & KPIs
+                </a>
+                <a href="colaboradores.html" class="nav-item active">
+                    <i class="fa-solid fa-users-rectangle"></i> Colaboradores & Fichas
+                </a>
+                <a href="almoxarifado.html" class="nav-item">
+                    <i class="fa-solid fa-boxes-stacked"></i> Estoque & Validade CA
+                </a>
+                <a href="entregas.html" class="nav-item">
+                    <i class="fa-solid fa-file-signature"></i> Registro & Termos NR-6
+                </a>
+                <a href="treinamentos.html" class="nav-item">
+                    <i class="fa-solid fa-graduation-cap"></i> Treinamentos & Normas
+                </a>
+                <a href="auditoria.html" class="nav-item">
+                    <i class="fa-solid fa-clipboard-check"></i> Auditoria & Exportação
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="company-info">
+                    <p><strong>Matriz Industrial - Setor B</strong></p>
+                    <span><i class="fa-solid fa-circle" style="font-size: 8px;"></i> 100% Conforme NR-6</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="globalSearch" placeholder="Pesquisar colaborador ou cargo..." onkeyup="filtrarTabelas()">
+                </div>
+                <div class="topbar-actions">
+                    <button class="btn-primary" onclick="abrirModalFuncionario()"><i class="fa-solid fa-user-plus"></i> Novo Colaborador</button>
+                    <div class="user-badge" title="Gestor SESMT">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span>Eng. SESMT</span>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content-section active">
+                <div class="page-header">
+                    <div>
+                        <h1>Gestão de Colaboradores & Fichas Individuais</h1>
+                        <p>Controle de pessoal, setores operacionais e histórico de EPIs obrigatórios pela NR-6.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table id="tabelaFuncionariosGeral">
+                            <thead>
+                                <tr>
+                                    <th>Nome Completo</th>
+                                    <th>Cargo / Função</th>
+                                    <th>Setor Operacional</th>
+                                    <th>EPIs Habituais</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Novo Colaborador -->
+    <div id="modalFuncionario" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-plus"></i> Cadastrar Novo Colaborador</h3>
+                <button class="modal-close" onclick="fecharModais()">&times;</button>
+            </div>
+            <form id="formFuncionario" onsubmit="salvarFuncionario(event)">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="novoNomeFunc" placeholder="Ex: Marcos Vinícius Souza" required>
+                </div>
+                <div class="form-group">
+                    <label>Cargo / Função</label>
+                    <input type="text" id="novoCargoFunc" placeholder="Ex: Técnico de Instalações" required>
+                </div>
+                <div class="form-group">
+                    <label>Setor Operacional</label>
+                    <input type="text" id="novoSetorFunc" placeholder="Ex: Manutenção Externa" required>
+                </div>
+                <div class="form-group">
+                    <label>EPIs Habituais</label>
+                    <input type="text" id="novoEpiFunc" placeholder="Ex: Capacete, Cinto Paraquedista, Botas" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="fecharModais()">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar Colaborador</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
